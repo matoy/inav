@@ -353,7 +353,7 @@ void mixTable(const float dT)
             if (feature(FEATURE_MOTOR_STOP) && ARMING_FLAG(ARMED)) {
                 bool failsafeMotorStop = failsafeRequiresMotorStop();
                 bool navMotorStop = !failsafeIsActive() && STATE(NAV_MOTOR_STOP_OR_IDLE);
-                bool userMotorStop = !navigationIsFlyingAutonomousMode() && !failsafeIsActive() && (rcData[THROTTLE] < rxConfig()->mincheck);
+                bool userMotorStop = !(navigationIsFlyingAutonomousMode() && navConfig()->auto_overrides_motor_stop) && !failsafeIsActive() && (rcData[THROTTLE] < rxConfig()->mincheck);
                 if (failsafeMotorStop || navMotorStop || userMotorStop) {
                     if (feature(FEATURE_3D)) {
                         motor[i] = PWM_RANGE_MIDDLE;
