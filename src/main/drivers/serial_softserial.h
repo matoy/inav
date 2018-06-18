@@ -21,7 +21,8 @@
 
 typedef enum {
     SOFTSERIAL1 = 0,
-    SOFTSERIAL2
+    SOFTSERIAL2,
+    SOFTSERIAL3
 } softSerialPortIndex_e;
 
 serialPort_t *openSoftSerial(softSerialPortIndex_e portIndex, serialReceiveCallbackPtr rxCallback, void *rxCallbackData, uint32_t baud, portMode_t mode, portOptions_t options);

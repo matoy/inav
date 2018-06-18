@@ -26,7 +26,7 @@
 
 #include "platform.h"
 
-#if defined(USE_SOFTSERIAL1) || defined(USE_SOFTSERIAL2)
+#if defined(USE_SOFTSERIAL1) || defined(USE_SOFTSERIAL2) || defined(USE_SOFTSERIAL3)
 
 #include "build/build_config.h"
 #include "build/atomic.h"
@@ -47,7 +47,9 @@
 #define RX_TOTAL_BITS 10
 #define TX_TOTAL_BITS 10
 
-#if defined(USE_SOFTSERIAL1) && defined(USE_SOFTSERIAL2)
+#if defined(USE_SOFTSERIAL1) && defined(USE_SOFTSERIAL2) &&  defined(USE_SOFTSERIAL3)
+#define MAX_SOFTSERIAL_PORTS 3
+#elif defined(USE_SOFTSERIAL1) && defined(USE_SOFTSERIAL2)
 #define MAX_SOFTSERIAL_PORTS 2
 #else
 #define MAX_SOFTSERIAL_PORTS 1
@@ -252,6 +254,13 @@ serialPort_t *openSoftSerial(softSerialPortIndex_e portIndex, serialReceiveCallb
     if (portIndex == SOFTSERIAL2) {
         tagRx = IO_TAG(SOFTSERIAL_2_RX_PIN);
         tagTx = IO_TAG(SOFTSERIAL_2_TX_PIN);
+    }
+#endif
+
+#ifdef USE_SOFTSERIAL3
+    if (portIndex == SOFTSERIAL3) {
+        tagRx = IO_TAG(SOFTSERIAL_3_RX_PIN);
+        tagTx = IO_TAG(SOFTSERIAL_3_TX_PIN);
     }
 #endif
 
