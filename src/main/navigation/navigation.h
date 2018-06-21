@@ -110,6 +110,7 @@ typedef struct navConfig_s {
         struct {
             uint8_t use_thr_mid_for_althold;    // Don't remember throttle when althold was initiated, assume that throttle is at Thr Mid = zero climb rate
             uint8_t extra_arming_safety;        // Forcibly apply 100% throttle tilt compensation
+			uint8_t mod_failsafe_in_waypoint_mode;
             uint8_t user_control_mode;          // NAV_GPS_ATTI or NAV_GPS_CRUISE
             uint8_t rth_alt_control_mode;       // Controls the logic for choosing the RTH altitude
             uint8_t rth_climb_first;            // Controls the logic for initial RTH climbout

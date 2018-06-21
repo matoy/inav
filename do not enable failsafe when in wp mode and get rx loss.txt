@@ -1,0 +1,42 @@
+
+
+C:\Users\thoma\Desktop\drone offline\inav-master\inav-master\src\main\flight\failsafe.c
+ligne 410
+//if (FLIGHT_MODE(NAV_WP_MODE) && navConfig()->general.flags.mod_failsafe_in_waypoint_mode == 1) {
+					if (FLIGHT_MODE(ANGLE_MODE) && navConfig()->general.flags.mod_failsafe_in_waypoint_mode == 1) {
+						failsafe_procedure_to_use = FAILSAFE_PROCEDURE_NONE;
+					}
+					//else if (FLIGHT_MODE(NAV_WP_MODE) && navConfig()->general.flags.mod_failsafe_in_waypoint_mode == 2) {
+					else if (FLIGHT_MODE(ANGLE_MODE) && navConfig()->general.flags.mod_failsafe_in_waypoint_mode == 2) {
+						failsafe_procedure_to_use = FAILSAFE_PROCEDURE_RTH;
+					}
+
+trouver la ligne qui active le mode failsafe and ajouter les bonnes conditions pour l'activer s'il le faut
+
+trouver comment savoir si on est dans le mode waypoints:
+FLIGHT_MODE(NAV_WP_MODE)
+à tester avec angle mode: ANGLE_MODE
+
+%%%%%
+ajouter une variable afin de pouvoir activer la fonctionnalité proprement
+C:\Users\thoma\Desktop\drone offline\inav-master\inav-master\src\main\navigation\navigation.h
+ligne 113
+uint8_t mod_failsafe_in_waypoint_mode;
+
+C:\Users\thoma\Desktop\drone offline\inav-master\inav-master\src\main\fc\settings.yaml
+ligne 1132
+définition:
+- name: nav_mod_failsafe_in_waypoint_mode
+field: general.flags.mod_failsafe_in_waypoint_mode
+type: uint8_t
+
+C:\Users\thoma\Desktop\drone offline\inav-master\inav-master\docs\Cli.md
+ligne 152
+|  nav_mod_failsafe_in_waypoint_mode  | 0 | If set to 0 (default): feature is disabled; If set to 1: failsafe won't enable if RX fails while in waypoint mode (mission continues);  If set to 2: triggers RTH |waypoint mode (mission continues);  If set to 2: triggers RTH |
+
+check de la variable dans le code:
+navConfig()->general.flags.disable_failsafe_in_waypoint_mode
+(exemple C:\Users\thoma\Desktop\drone offline\inav-master\inav-master\src\main\navigation\navigation.c ligne 2484)
+
+%%%%%
+failsafeIsReceivingRxData

@@ -1129,6 +1129,11 @@ groups:
       - name: nav_extra_arming_safety
         field: general.flags.extra_arming_safety
         type: bool
+      - name: nav_mod_failsafe_in_waypoint_mode
+        field: general.flags.mod_failsafe_in_waypoint_mode
+        type: uint8_t
+        min: 0
+        max: 2
       - name: nav_user_control_mode
         field: general.flags.user_control_mode
         table: nav_user_control_mode

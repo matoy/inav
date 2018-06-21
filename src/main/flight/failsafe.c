@@ -407,6 +407,16 @@ void failsafeUpdateState(void)
                         failsafe_procedure_to_use = failsafeConfig()->failsafe_min_distance_procedure;
                     }
 
+					if (FLIGHT_MODE(NAV_WP_MODE) && navConfig()->general.flags.mod_failsafe_in_waypoint_mode == 1) {
+					//if (FLIGHT_MODE(ANGLE_MODE) && navConfig()->general.flags.mod_failsafe_in_waypoint_mode == 1) {
+						failsafe_procedure_to_use = FAILSAFE_PROCEDURE_NONE;
+						//break;
+					}
+					else if (FLIGHT_MODE(NAV_WP_MODE) && navConfig()->general.flags.mod_failsafe_in_waypoint_mode == 2) {
+					//else if (FLIGHT_MODE(ANGLE_MODE) && navConfig()->general.flags.mod_failsafe_in_waypoint_mode == 2) {
+						failsafe_procedure_to_use = FAILSAFE_PROCEDURE_RTH;
+						//break;
+					}
                     switch (failsafe_procedure_to_use) {
                         case FAILSAFE_PROCEDURE_AUTO_LANDING:
                             // Stabilize, and set Throttle to specified level
